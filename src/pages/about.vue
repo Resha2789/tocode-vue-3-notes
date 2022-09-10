@@ -13,6 +13,12 @@
 		<li>хеши и моды для роутера;</li>
 		<li>настройка общего конфига.</li>
 	</ul>
+	<strong>И мелочи:</strong>
+	<ul class="md-body ul-st">
+		<li>Полное настройка для переиспользования шаблона</li>
+		<li>Универсальный компонент списка и форм</li>
+		<li>Универсальный компонент Тегов для будущих проектов</li>
+	</ul>
 	<p style="user-select: none">
 		Сделано на курсе
 		<a href="https://tocode.ru/courses/vuejs-3-s-nulya-do-rezultata/">
