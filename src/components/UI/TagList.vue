@@ -6,10 +6,10 @@
 			class="tag-item"
 			v-for="item in items"
 			:key="item"
-			@click="$emit('onItemClick', item)"
+			@click="$emit('onItemClick', [item, $event.target])"
 			:class="{ isPreview }"
 		>
-			<span>{{ item }}</span>
+			{{ item }}
 		</div>
 	</div>
 </template>
@@ -42,6 +42,10 @@ export default {
 	border-radius: 22px;
 	user-select: none;
 	cursor: pointer;
+	&.isActive {
+		background-color: #444ce0;
+		color: #fff;
+	}
 	&.isPreview {
 		padding: 0;
 		color: #444ce0;

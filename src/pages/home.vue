@@ -15,8 +15,7 @@ export default {
 		return {
 			notes: [
 				{ title: 'Learn Vue 3', tags: ['works'] },
-				{ title: 'Finish course', tags: ['work', 'home'] },
-				{ title: 'hello', tags: [] }
+				{ title: 'Finish course', tags: ['work', 'home'] }
 			]
 		}
 	},
@@ -38,10 +37,11 @@ export default {
 				this.notes = JSON.parse(localNotes)
 			}
 		},
-		handleSubmit(title) {
+		handleSubmit([title, tags]) {
+			console.log(title, tags)
 			const note = {
 				title,
-				tags: []
+				tags
 			}
 			this.notes.push(note)
 		},

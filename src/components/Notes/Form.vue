@@ -23,17 +23,24 @@ export default {
 	data() {
 		return {
 			value: '',
-			tags: ['work', 'travel', 'car']
+			tags: ['work', 'travel', 'car'],
+			activeTags: []
 		}
 	},
 
 	methods: {
 		onSubmit() {
-			this.$emit('onSubmit', this.value)
+			this.$emit('onSubmit', [this.value, [...this.activeTags]])
 			this.value = ''
 		},
-		handleTagClick(tag) {
-			console.log(tag)
+		handleTagClick([tag, target]) {
+			if (target.classList.contains('isActive')) {
+				target.classList.remove('isActive')
+				this.activeTags.splice(this.activeTags.indexOf(tag), 1)
+			} else {
+				target.classList.add('isActive')
+				this.activeTags.push(tag)
+			}
 		}
 	}
 }
