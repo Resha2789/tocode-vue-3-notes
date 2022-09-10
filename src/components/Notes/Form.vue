@@ -4,13 +4,14 @@
 	<div class="note-form-wrapper">
 		<form class="note-form" @submit.prevent="onSubmit">
 			<textarea
+				class="note-textarea"
 				type="text"
 				required
 				placeholder="Type ur note"
 				v-model="value"
 			/>
 			<TagList @onItemClick="handleTagClick" :items="tags" />
-			<button class="btn btnPrimary" type="submit">Add new note</button>
+			<button class="btn btnPrimary btn-form" type="submit">New note</button>
 		</form>
 	</div>
 </template>
@@ -55,7 +56,14 @@ export default {
 .note-form {
 	display: flex;
 	flex-direction: column;
-	max-width: 600px;
+	align-items: center;
+	max-width: 100%;
 	width: 100%;
+}
+.btn-form {
+	max-width: 200px;
+}
+.note-textarea {
+	margin-bottom: 10px;
 }
 </style>

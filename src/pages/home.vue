@@ -1,8 +1,10 @@
 <!-- @format -->
 
 <template>
-	<Form @onSubmit="handleSubmit" />
-	<List @onRemove="handleRemove" :items="notes" />
+	<div class="view-sm isCenter">
+		<Form @onSubmit="handleSubmit" />
+		<List @onRemove="handleRemove" :items="notes" />
+	</div>
 </template>
 
 <script>
