@@ -2,7 +2,12 @@
 
 <template>
 	<div class="note-form-wrapper">
-		<form class="note-form" @submit.prevent="onSubmit">
+		<form
+			class="note-form"
+			@submit.prevent="
+				handleSubmitNote([value, [...getActiveTags]]), (value = '')
+			"
+		>
 			<textarea
 				class="note-textarea"
 				type="text"
@@ -10,39 +15,43 @@
 				placeholder="Type ur note"
 				v-model="value"
 			/>
-			<TagList @onItemClick="handleTagClick" :items="tags" />
-			<button class="btn btnPrimary btn-form" type="submit">New note</button>
+			<TagList
+				@onSubmit="handleSubmitTag"
+				:items="getTags"
+				:activeTags="getActiveTags"
+				:isSetActive="true"
+			/>
+			<button class="btn btnSuccess btn-form" type="submit">New note</button>
 		</form>
 	</div>
 </template>
 
 <script>
 import TagList from '@/components/UI/TagList.vue'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
 	components: { TagList },
 	data() {
 		return {
-			value: '',
-			tags: ['work', 'travel', 'car'],
-			activeTags: []
+			value: ''
 		}
 	},
-
+	beforeMount() {
+		this.value = this.getFormValue
+	},
+	beforeUnmount() {
+		this.handleSubmitFromValue(this.value)
+	},
+	computed: {
+		...mapGetters(['getFormValue', 'getTags', 'getActiveTags'])
+	},
 	methods: {
-		onSubmit() {
-			this.$emit('onSubmit', [this.value, [...this.activeTags]])
-			this.value = ''
-		},
-		handleTagClick([tag, target]) {
-			if (target.classList.contains('isActive')) {
-				target.classList.remove('isActive')
-				this.activeTags.splice(this.activeTags.indexOf(tag), 1)
-			} else {
-				target.classList.add('isActive')
-				this.activeTags.push(tag)
-			}
-		}
+		...mapActions({
+			handleSubmitNote: 'setNote',
+			handleSubmitTag: 'updateActiveTag',
+			handleSubmitFromValue: 'setFormValue'
+		})
 	}
 }
 </script>

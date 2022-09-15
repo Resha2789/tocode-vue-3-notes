@@ -6,8 +6,8 @@
 			class="tag-item"
 			v-for="item in items"
 			:key="item"
-			@click="$emit('onItemClick', [item, $event.target])"
-			:class="{ isPreview }"
+			:class="classSet(item)"
+			@click="onSubmit([item, $event.target])"
 		>
 			{{ item }}
 		</div>
@@ -15,14 +15,43 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
 	props: {
 		items: {
 			type: Array
 		},
+		activeTags: {
+			type: Array
+		},
 		isPreview: {
 			type: Boolean,
 			default: false
+		},
+		isSetActive: {
+			type: Boolean,
+			default: false
+		}
+	},
+
+	methods: {
+		onSubmit([item, target]) {
+			console.log(target)
+			this.$emit('onSubmit', [item, target])
+		},
+
+		classSet(item) {
+			const pClass = []
+			if (this.isPreview) {
+				pClass.push('isPreview')
+			}
+			if (this.isSetActive) {
+				if (this.activeTags.find(tag => tag == item)) {
+					pClass.push('isActive')
+				}
+			}
+			return pClass
 		}
 	}
 }
