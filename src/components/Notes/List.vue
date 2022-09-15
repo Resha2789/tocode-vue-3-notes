@@ -2,12 +2,10 @@
 
 <template>
 	<div class="note-list">
-		<div class="note-item" v-for="(note, index) in items" :key="index">
+		<div class="note-item" v-for="note in getNotes" :key="note.id">
 			<div class="note-header">
 				<p>{{ note.title }}</p>
-				<p style="cursor: pointer" @click="$emit('onRemove', index)">
-					&#x2716;
-				</p>
+				<p style="cursor: pointer" @click="removeNote(note.id)">&#x2716;</p>
 			</div>
 			<div class="note-footer">
 				<TagList
@@ -22,14 +20,22 @@
 
 <script>
 import TagList from '@/components/UI/TagList.vue'
+import { mapGetters, mapActions } from 'vuex'
+import { setLocalStorage, getLocalStorage } from '@/Utils/LocalStorage'
 
 export default {
 	components: { TagList },
-	props: {
-		items: {
-			type: Array,
-			required: true
-		}
+	beforeMount() {
+		this.setNotes(getLocalStorage('notes'))
+	},
+	beforeUpdate() {
+		setLocalStorage('notes', this.getNotes)
+	},
+	computed: {
+		...mapGetters(['getNotes'])
+	},
+	methods: {
+		...mapActions(['setNotes', 'removeNote'])
 	}
 }
 </script>
